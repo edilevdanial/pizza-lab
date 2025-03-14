@@ -1,8 +1,13 @@
 spring:
+#  datasource:
+#    url: jdbc:postgresql://localhost:5432/pizza_db
+#    username: danialedilev
+#    password: 'Happymeal123'
+#    driver-class-name: org.postgresql.Driver
   datasource:
-    url: jdbc:postgresql://localhost:5432/pizza_db
-    username: danialedilev
-    password: 'Happymeal123'
+    url: jdbc:postgresql://dpg-cv9nitfnoe9s73c5b5og-a:5432/pizza_db_jkvj
+    username: pizza_db_jkvj_user
+    password: '7V44e9mREu3Gqb4n8pvnQBXjPvsvlqrp'
     driver-class-name: org.postgresql.Driver
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
@@ -15,5 +20,14 @@ server:
   port: 8080
   servlet:
     contextPath: /api
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus
+  prometheus:
+    metrics:
+      export:
+        enabled: true
 jwt:
   secret: "9Bv63bCkJ+Hpt7y+3uY7kQ+qEj0JBNtNRK/FfB0SRHI="
