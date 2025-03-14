@@ -16,7 +16,7 @@ spring:
     show-sql: true
   sql:
     init:
-      data-locations: templates/initDB.sql
+      data-locations: classpath*:templates/initDB.sql
   application:
     name: pizza-app
 server:
