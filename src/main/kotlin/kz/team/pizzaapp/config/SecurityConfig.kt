@@ -17,7 +17,7 @@ class SecurityConfig(private val jwtFilter: JwtFilter?) {
         http
             .csrf { it.disable() } // Disable CSRF
             .authorizeHttpRequests {
-                it.requestMatchers(org.springframework.http.HttpMethod.GET, "/**").permitAll() // Allow all GET requests
+//                it.requestMatchers(org.springframework.http.HttpMethod.GET, "/**").permitAll() // Allow all GET requests
                 it.requestMatchers("/auth/**").permitAll() // Allow auth routes
                 it.requestMatchers(
                     "/v3/api-docs/**",
