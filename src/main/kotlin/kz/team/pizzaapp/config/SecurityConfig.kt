@@ -2,7 +2,6 @@ package kz.team.pizzaapp.config
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import org.springframework.security.config.Customizer
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.http.SessionCreationPolicy
@@ -24,6 +23,9 @@ class SecurityConfig(private val jwtFilter: JwtFilter?) {
                     "/swagger-ui/**",
                     "/swagger-ui.html"
                 ).permitAll() // ✅ Allow Swagger
+                it.requestMatchers(
+                    "/actuator/**",
+                ).permitAll() // ✅ Allow actuator healt
                     .anyRequest()
                     .authenticated()
             } // Protect all other endpoints
