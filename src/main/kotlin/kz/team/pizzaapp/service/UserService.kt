@@ -18,6 +18,7 @@ class UserService(val userRepository: UserRepository) {
     }
 
     fun getByPhone(phone: String) = userRepository.getByPhone(phone)?.getDTO()
+    fun getEntityByPhone(phone: String) = userRepository.getByPhone(phone)
 
     fun update(id: Long, userDTO: UserDTO) = userRepository.update(id, userDTO)
 

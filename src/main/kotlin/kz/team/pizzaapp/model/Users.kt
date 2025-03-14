@@ -30,8 +30,6 @@ class UserEntity(id: EntityID<Long>) : LongEntity(id) {
         username = this.username,
         email = this.email,
         phone = this.phone,
-        address = this.address,
-        isActive = this.isActive,
-        password = this.password
+        address = this.address
     )
 }

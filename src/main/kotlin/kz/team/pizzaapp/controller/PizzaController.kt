@@ -19,6 +19,9 @@ class PizzaController(
     @GetMapping
     fun getAllPizza() = pizzaService.getAllPizza()
 
+    @GetMapping("/active")
+    fun getAllActivePizza() = pizzaService.getAllActivePizza()
+
     @GetMapping("/{id}")
     fun getPizzaById(@PathVariable id: Long) = pizzaService.getPizzaById(id)
 

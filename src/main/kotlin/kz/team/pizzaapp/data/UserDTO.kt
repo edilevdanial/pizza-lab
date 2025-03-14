@@ -6,8 +6,6 @@ data class UserDTO (
     val email: String,
     val phone: String,
     val address: String,
-    val isActive: Boolean,
-    val password: String
 )
 
 data class UserCreateDTO (

@@ -2,12 +2,18 @@ package kz.team.pizzaapp.repository
 
 import kz.team.pizzaapp.data.PizzaRequestDTO
 import kz.team.pizzaapp.model.PizzaEntity
+import kz.team.pizzaapp.model.Pizzas
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.springframework.stereotype.Repository
 
 @Repository
 class PizzaRepository {
 
+    fun getAllActive(): List<PizzaEntity> = transaction {
+        PizzaEntity.find {
+            Pizzas.isActive eq true
+        }.toList()
+    }
     fun getAll(): List<PizzaEntity> = transaction { PizzaEntity.all().toList() }
 
     fun findById(id: Long): PizzaEntity? = transaction { PizzaEntity.findById(id) }

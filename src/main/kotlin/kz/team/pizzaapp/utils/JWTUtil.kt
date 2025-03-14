@@ -2,6 +2,7 @@ package kz.team.pizzaapp.utils
 
 import io.jsonwebtoken.Claims
 import io.jsonwebtoken.Jwts
+import kz.team.pizzaapp.data.UserDTO
 import kz.team.pizzaapp.service.AuthResponse
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
@@ -17,10 +18,10 @@ class JwtUtil {
     private val refreshExpirationTime = 1000 * 60 * 60 * 24 * 7 // 7 days for refresh token
 
 
-    fun generateToken(username: String): AuthResponse {
+    fun generateToken(username: String, userDTO: UserDTO): AuthResponse {
         val accessToken = generateAccessToken(username)
         val refreshToken = generateRefreshToken(username)
-        return AuthResponse(accessToken, refreshToken)
+        return AuthResponse(accessToken, refreshToken, userDTO)
     }
 
     fun generateAccessToken(username: String): String {

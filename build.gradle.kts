@@ -19,6 +19,7 @@ repositories {
     mavenCentral()
 }
 
+// TODO remove spring-jpa plugin
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-web")

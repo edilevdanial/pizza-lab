@@ -31,7 +31,6 @@ class UserRepository {
             it.email = userDTO.email
             it.phone = userDTO.phone
             it.address = userDTO.address
-            it.isActive = userDTO.isActive
         } ?: return@transaction null
     }
 

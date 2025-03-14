@@ -1,7 +1,7 @@
 package kz.team.pizzaapp.controller
 
-import kz.team.pizzaapp.data.LoginDTO
 import kz.team.pizzaapp.data.UserCreateDTO
+import kz.team.pizzaapp.service.AuthRequest
 import kz.team.pizzaapp.service.AuthResponse
 import kz.team.pizzaapp.service.AuthService
 import kz.team.pizzaapp.service.RefreshRequest
@@ -17,7 +17,7 @@ class AuthController(
     val authService: AuthService
 ) {
     @PostMapping("/login")
-    fun login(@RequestBody loginDTO: LoginDTO): ResponseEntity<AuthResponse> {
+    fun login(@RequestBody loginDTO: AuthRequest): ResponseEntity<AuthResponse> {
         return authService.login(loginDTO.username, loginDTO.password)
     }
 

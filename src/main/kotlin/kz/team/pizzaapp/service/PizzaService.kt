@@ -16,6 +16,10 @@ class PizzaService(
         return pizzaRepository.getAll().map { it.getDTO() }
     }
 
+    fun getAllActivePizza(): List<PizzaResponseDTO> {
+        return pizzaRepository.getAllActive().map { it.getDTO() }
+    }
+
     fun getPizzaById(id: Long): PizzaResponseDTO? {
         return pizzaRepository.findById(id)?.getDTO()
     }
