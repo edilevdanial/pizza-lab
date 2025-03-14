@@ -1,0 +1,19 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/pizza_db
+    username: danialedilev
+    password: 'Happymeal123'
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+  application:
+    name: pizza-app
+server:
+  port: 8080
+  servlet:
+    contextPath: /api
+jwt:
+  secret: "9Bv63bCkJ+Hpt7y+3uY7kQ+qEj0JBNtNRK/FfB0SRHI="
