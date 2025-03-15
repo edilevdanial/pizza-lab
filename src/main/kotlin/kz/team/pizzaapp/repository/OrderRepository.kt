@@ -7,14 +7,19 @@ import org.jetbrains.exposed.sql.transactions.transaction
 import org.springframework.stereotype.Repository
 
 @Repository
-class OrderRepository {
+class OrderRepository(val orderPizzaRepository: OrderPizzaRepository) {
 
-    fun saveOrder(orderRequestDTO: OrderRequestDTO) {
-        transaction {
-            OrdersEntity.new {
-                userId = orderRequestDTO.userId
-                totalAmount = orderRequestDTO.totalAmount.toBigDecimal()
+    fun saveOrder(orderRequestDTO: OrderRequestDTO, totalAmount: Double ,userId: Long): OrdersEntity {
+        return transaction {
+          val d =  OrdersEntity.new {
+                this.userId = userId
+                this.totalAmount = totalAmount.toBigDecimal()
             }
+
+            orderRequestDTO.orderPizza.forEach {
+                orderPizzaRepository.saveOrderPizza(d.id.value, it)
+            }
+            return@transaction d
         }
     }
 

@@ -1,4 +1,4 @@
-package kz.team.pizzaapp.data;
+package kz.team.pizzaapp.data
 
 data class PizzaResponseDTO(
     val id: Long,
@@ -15,8 +15,8 @@ data class PizzaRequestDTO(
     val description: String,
     val image: String,
     val isActive: Boolean,
-    val categoryId: Long,
-    val ingredientsList: List<Long>
+//    val categoryId: Long,
+//    val ingredientsList: List<Long>
 )
 
 

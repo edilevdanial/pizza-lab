@@ -1,14 +1,16 @@
 package kz.team.pizzaapp.data
 
+import java.util.Collections
+
 data class OrderResponseDTO(
     val id: Long,
     val userId: Long,
     val orderDate: String,
     val totalAmount: Double,
-    val status: String
+    val status: String,
+    val orderPizza: List<OrderPizzaResponseDTO> = Collections.emptyList()
 )
 
 data class OrderRequestDTO(
-    val userId: Long,
-    val totalAmount: Double
+    val orderPizza: List<OrderPizzaRequestDTO>
 )

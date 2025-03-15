@@ -12,21 +12,21 @@ class AuthService(
     val userService: UserService,
     val jwtUtil: JwtUtil
 ) {
-    fun login(username: String, password: String): ResponseEntity<AuthResponse> {
-        val user = userService.getEntityByPhone(username)
+    fun login(phone: String, password: String): ResponseEntity<AuthResponse> {
+        val user = userService.getEntityByPhone(phone)
 
         if (user != null && PasswordUtil.matches(password, user.password)) {
-            return ResponseEntity.ok(jwtUtil.generateToken(user.username, user.getDTO()))
+            return ResponseEntity.ok(jwtUtil.generateToken(user.getDTO()))
         }
 
         return ResponseEntity.internalServerError().build()
     }
 
     fun refresh(request: RefreshRequest): ResponseEntity<AuthResponse> {
-        val username = jwtUtil.extractUsername(request.refreshToken)
-        val user = userService.getByPhone(username)
-        if (user != null && jwtUtil.isTokenValid(request.refreshToken, username)) {
-            val newAccessToken = jwtUtil.generateAccessToken(username)
+        val userDetail = jwtUtil.getUserDetailsFromToken(request.refreshToken)
+        val user = userService.getByPhone(userDetail.phone)
+        if (user != null && jwtUtil.validateToken(request.refreshToken)) {
+            val newAccessToken = jwtUtil.generateAccessToken(user)
             return ResponseEntity.ok(AuthResponse(newAccessToken, request.refreshToken, user))
         }
         return ResponseEntity.badRequest().build()
@@ -39,10 +39,10 @@ class AuthService(
         }
 
         val userDTO = userService.save(userCreateDTO)
-        return ResponseEntity.ok(jwtUtil.generateToken(userDTO.username, userDTO))
+        return ResponseEntity.ok(jwtUtil.generateToken(userDTO))
     }
 }
 
-data class AuthRequest(val username: String, val password: String)
+data class AuthRequest(val phone: String, val password: String)
 data class AuthResponse(val accessToken: String, val refreshToken: String, val user: UserDTO)
 data class RefreshRequest(val refreshToken: String)

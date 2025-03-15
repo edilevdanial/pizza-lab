@@ -1,3 +1,6 @@
+-- pg_ctl -D /opt/homebrew/var/postgres start
+
+
 -- Table: Users (Пользователи)
 CREATE TABLE Users
 (
@@ -13,9 +16,11 @@ CREATE TABLE Users
 -- Table: Admins (Администраторы)
 CREATE TABLE Admins
 (
-    admin_id      SERIAL PRIMARY KEY,
+    id      SERIAL PRIMARY KEY,
     username      VARCHAR(100) NOT NULL UNIQUE,
-    password_hash VARCHAR(255) NOT NULL
+    password_hash VARCHAR(255) NOT NULL,
+    is_active     BOOLEAN DEFAULT TRUE,
+    roles         VARCHAR(50) NOT NULL
 );
 
 -- Table: Pizzas (Пиццы)
@@ -60,12 +65,11 @@ CREATE TABLE Orders
 -- Table: Order_Pizzas (Заказанные пиццы)
 CREATE TABLE Order_Pizzas
 (
-    order_pizza_id SERIAL PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     order_id       INT            NOT NULL,
     pizza_id       INT            NOT NULL,
     quantity       INT            NOT NULL,
     size           VARCHAR(50),
-    price          NUMERIC(10, 2) NOT NULL,
     CONSTRAINT fk_orderpizza_order FOREIGN KEY (order_id) REFERENCES Orders (id) ON DELETE CASCADE,
     CONSTRAINT fk_orderpizza_pizza FOREIGN KEY (pizza_id) REFERENCES Pizza (id) ON DELETE CASCADE
 );
@@ -73,7 +77,7 @@ CREATE TABLE Order_Pizzas
 -- Table: Payments (Оплаты)
 CREATE TABLE Payments
 (
-    payment_id     SERIAL PRIMARY KEY,
+    id     SERIAL PRIMARY KEY,
     order_id       INT            NOT NULL,
     payment_date   TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     amount         NUMERIC(10, 2) NOT NULL,
@@ -97,7 +101,7 @@ CREATE TABLE Payments
 -- Optional Table: Coupons (Купоны)
 CREATE TABLE Coupons
 (
-    coupon_id        SERIAL PRIMARY KEY,
+    id        SERIAL PRIMARY KEY,
     code             VARCHAR(50) NOT NULL UNIQUE,
     discount_amount  NUMERIC(10, 2),
     expiry_date      DATE,
@@ -107,7 +111,7 @@ CREATE TABLE Coupons
 -- Optional Table: Delivery (Доставка)
 CREATE TABLE Delivery
 (
-    delivery_id     SERIAL PRIMARY KEY,
+    id     SERIAL PRIMARY KEY,
     order_id        INT NOT NULL,
     delivery_person VARCHAR(100),
     delivery_time   TIMESTAMP,

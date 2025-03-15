@@ -6,6 +6,7 @@ import org.jetbrains.exposed.dao.LongEntityClass
 import org.jetbrains.exposed.dao.id.EntityID
 import org.jetbrains.exposed.dao.id.LongIdTable
 import org.jetbrains.exposed.sql.javatime.datetime
+import org.jetbrains.exposed.sql.transactions.transaction
 import java.time.LocalDateTime
 
 object Orders : LongIdTable("orders") {
@@ -23,13 +24,14 @@ class OrdersEntity(id: EntityID<Long>) : LongEntity(id) {
     var totalAmount by Orders.totalAmount
     var status by Orders.status
 
-
     fun getDTO() = OrderResponseDTO(
         id = this.id.value,
         userId = this.userId,
         orderDate = this.orderDate.toString(),
         totalAmount = this.totalAmount.toDouble(),
-        status = this.status
+        status = this.status,
+        orderPizza = transaction {
+            OrderPizzaEntity.find { OrderPizza.orderId eq super.id.value }.map { it.getDTO() }
+        }
     )
-
 }

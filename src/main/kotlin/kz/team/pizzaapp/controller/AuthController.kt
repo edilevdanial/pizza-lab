@@ -18,11 +18,11 @@ class AuthController(
 ) {
     @PostMapping("/login")
     fun login(@RequestBody loginDTO: AuthRequest): ResponseEntity<AuthResponse> {
-        return authService.login(loginDTO.username, loginDTO.password)
+        return authService.login(loginDTO.phone, loginDTO.password)
     }
 
     @PostMapping("/refresh")
-    fun register(@RequestBody refreshRequest: RefreshRequest): ResponseEntity<AuthResponse> {
+    fun refresh(@RequestBody refreshRequest: RefreshRequest): ResponseEntity<AuthResponse> {
         return authService.refresh(refreshRequest)
     }
 

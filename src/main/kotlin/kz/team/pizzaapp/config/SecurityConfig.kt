@@ -18,17 +18,11 @@ class SecurityConfig(private val jwtFilter: JwtFilter?) {
             .csrf { it.disable() } // Disable CSRF
             .authorizeHttpRequests {
 //                it.requestMatchers(org.springframework.http.HttpMethod.GET, "/**").permitAll() // Allow all GET requests
-                it.requestMatchers("/auth/**").permitAll() // Allow auth routes
-                it.requestMatchers(
-                    "/v3/api-docs/**",
-                    "/swagger-ui/**",
-                    "/swagger-ui.html"
-                ).permitAll() // ✅ Allow Swagger
-                it.requestMatchers(
-                    "/actuator/**",
-                ).permitAll() // ✅ Allow actuator healt
-                    .anyRequest()
-                    .authenticated()
+                it
+                    .requestMatchers("/auth/**").permitAll() // Allow auth routes
+                    .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll() // ✅ Allow Swagger
+                    .requestMatchers("/actuator/**").permitAll() // ✅ Allow actuator healt
+                    .anyRequest().authenticated()
             } // Protect all other endpoints
             .sessionManagement { it.sessionCreationPolicy(SessionCreationPolicy.STATELESS) } // No sessions
             .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter::class.java) // Add JWT filter
