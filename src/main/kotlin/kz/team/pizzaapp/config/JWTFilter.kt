@@ -24,8 +24,7 @@ class JwtFilter(private val jwtUtil: JwtUtil) : OncePerRequestFilter() {
             if (!username.isNullOrBlank() && jwtUtil.validateToken(token)) {
                 val userDetails = jwtUtil.getUserDetailsFromToken(token)
                 val auth = JwtAuthenticationToken(userDetails)
-//                val authentication = UsernamePasswordAuthenticationToken(userDetails, null, Collections.emptyList())
-//                authentication.details = WebAuthenticationDetailsSource().buildDetails(request)
+
                 SecurityContextHolder.getContext().authentication = auth
                 println("User: $auth")
             }

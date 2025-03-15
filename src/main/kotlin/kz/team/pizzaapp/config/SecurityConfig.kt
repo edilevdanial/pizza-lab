@@ -21,7 +21,7 @@ class SecurityConfig(private val jwtFilter: JwtFilter?) {
                 it
                     .requestMatchers("/auth/**").permitAll() // Allow auth routes
                     .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll() // ✅ Allow Swagger
-                    .requestMatchers("/actuator/**").permitAll() // ✅ Allow actuator healt
+                    .requestMatchers("/actuator/**").permitAll() // ✅ Allow actuator health
                     .anyRequest().authenticated()
             } // Protect all other endpoints
             .sessionManagement { it.sessionCreationPolicy(SessionCreationPolicy.STATELESS) } // No sessions
