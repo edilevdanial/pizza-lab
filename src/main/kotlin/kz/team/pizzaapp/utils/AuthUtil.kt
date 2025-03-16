@@ -3,7 +3,7 @@ package kz.team.pizzaapp.utils
 import kz.team.pizzaapp.data.UserPrincipal
 import org.springframework.security.authentication.AbstractAuthenticationToken
 
-class JwtAuthenticationToken(private val userPrincipal: UserPrincipal) : AbstractAuthenticationToken(null) {
+class JwtAuthenticationToken(private val userPrincipal: UserPrincipal) : AbstractAuthenticationToken(emptyList()) {
     init {
         isAuthenticated = true
     }
