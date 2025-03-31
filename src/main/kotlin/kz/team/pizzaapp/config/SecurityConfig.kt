@@ -15,12 +15,14 @@ class SecurityConfig(private val jwtFilter: JwtFilter) {
     @Bean
     fun securityFilterChain(http: HttpSecurity): SecurityFilterChain {
         http
+            .cors { it.disable() }
             .csrf { it.disable() } // Disable CSRF
             .authorizeHttpRequests {
 //                it.requestMatchers(org.springframework.http.HttpMethod.GET, "/**").permitAll() // Allow all GET requests
                 it
                     .requestMatchers("/auth/**").permitAll() // Allow auth routes
-                    .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll() // ✅ Allow Swagger
+                    .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html")
+                    .permitAll() // ✅ Allow Swagger
                     .requestMatchers("/actuator/**").permitAll() // ✅ Allow actuator health
                     .anyRequest().authenticated()
             } // Protect all other endpoints
