@@ -14,6 +14,8 @@ class AdminService(val adminRepository: AdminRepository) {
     fun getAdmins(): List<AdminDTO> {
         return adminRepository.getAdmins().map { it.getDTO() }
     }
+    // asdaasdasd
+
 
     fun updateAdmin(adminId: Long, adminDTO: AdminDTO) {
         adminRepository.updateAdmin(adminId, adminDTO)
